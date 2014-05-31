@@ -51,5 +51,7 @@ describe "StaticPages" do
    it "should have the right title 'Contact'" do
      visit '/static_pages/contact'
      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Contact")
+   end
+  end
 
 end
