@@ -29,7 +29,7 @@ describe "Authentication" do
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
       before do
-        click_button "Sign in"
+        sign_in user
       end
 
       it { should have_title(user.name) }
