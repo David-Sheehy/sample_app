@@ -50,8 +50,10 @@ describe "Authentication" do
 
   describe "authorization" do
     
-    describe "for non-signed in usrs" do
+    describe "for non-signed in users" do
       let(:user) { FactoryGirl.create(:user) }
+
+      
 
       describe "when attempting to visit a protect page" do
         before do
@@ -66,6 +68,7 @@ describe "Authentication" do
             expect(page).to have_title('Edit user')
           end
         end 
+        
       end # end visiting a protected page
 
       describe "in the Users controller" do
@@ -85,6 +88,20 @@ describe "Authentication" do
           it { should have_title('Sign in') }
         end
       end # End user controller
+
+      
+      describe "in the Microposts controller" do
+
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end # End non-signed in users
 
     describe "as wrong user" do
